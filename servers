@@ -1,0 +1,151 @@
+//Jira Server
+
+from pathlib import Path
+import sys
+from fastapi import FastAPI, HTTPException
+from datetime import datetime
+from pydantic import BaseModel
+import requests
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.append(str(BASE_DIR))
+    
+from incident_db.db.connection import get_connection
+from incident_db.models.all_incident import AllIncidentModel
+
+app = FastAPI(title="Jira MCP Server")
+
+
+class JiraRequest(BaseModel):
+    project: str
+    summary: str
+    description: str
+    priority: str
+    reporter: str | None = None
+    assigned_to: str | None = None
+
+@app.post("/jira")
+def jira_event(request:JiraRequest):
+    """
+    Handle Jira issue creation → transform → forward to central incident API.
+    """
+    inc_id = f"INC-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+    jira_ticket_id = f"JIRA-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+
+    payload = {
+        # Common fields
+        "id": inc_id,
+        "source": "jira",
+        "title": request.summary,
+        "description": request.description,
+        "priority": request.priority,
+        "urgency": None,
+        "status": "open",
+        "created_at": datetime.utcnow().isoformat() + "Z",
+        "last_updated": datetime.utcnow().isoformat() + "Z",
+        "reporter": "Jira Reporter",
+        "assigned_to": "Jira Assigned to",
+
+        # PagerDuty fields (unused here)
+        "pd_incident_id": None,
+        "pd_service_id": None,
+        "pd_escalation_policy": None,
+        "pd_html_url": None,
+
+        # Jira fields
+        "jira_ticket_id": jira_ticket_id,
+        "jira_project": request.project,
+        "jira_issue_type": "Incident",
+        "jira_url": f"https://jira.example.com/browse/{jira_ticket_id}",
+
+        # Slack fields (unused)
+        "slack_channel": None,
+        "slack_thread_ts": None,
+        "slack_user": None,
+        "slack_permalink": None,
+    }
+    try:
+        conn = get_connection()
+        all_incidents_model = AllIncidentModel(conn)
+        all_incidents_model.insert(payload)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+///slack_server.py
+
+from pathlib import Path
+import sys
+from fastapi import FastAPI, HTTPException
+from datetime import datetime
+from pydantic import BaseModel
+import requests
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.append(str(BASE_DIR))
+
+from incident_db.db.connection import get_connection
+from incident_db.models.all_incident import AllIncidentModel
+
+app = FastAPI(title="Slack MCP Server")
+
+class SlackRequest(BaseModel):
+    channel: str
+    message: str
+    severity: str = "medium"
+    user: str | None = None
+    thread_ts: str | None = None
+
+
+@app.post("/slack")
+def slack_event(request:SlackRequest):
+    """
+    Handle Slack incident messages → transform → forward to central incident API.
+    """
+    inc_id = f"INC-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+
+    payload = {
+        # Common fields
+        "id": inc_id,
+        "source": "slack",
+        "title": request.message,
+        "description": request.message,
+        "priority": request.severity.capitalize(),
+        "urgency": None,
+        "status": "open",
+        "created_at": datetime.utcnow().isoformat() + "Z",
+        "last_updated": datetime.utcnow().isoformat() + "Z",
+        "reporter": request.user or "Slack Reporter",
+        "assigned_to": None,
+
+        # PagerDuty fields (unused)
+        "pd_incident_id": None,
+        "pd_service_id": None,
+        "pd_escalation_policy": None,
+        "pd_html_url": None,
+
+        # Jira fields (unused)
+        "jira_ticket_id": None,
+        "jira_project": None,
+        "jira_issue_type": None,
+        "jira_url": None,
+
+        # Slack-specific
+        "slack_channel": request.channel,
+        "slack_thread_ts": request.thread_ts,
+        "slack_user": request.user,
+        "slack_permalink": (
+            f"https://slack.com/app_redirect?channel={request.channel}&message_ts={request.thread_ts}"
+            if request.thread_ts else None
+        ),
+    }
+
+    try:
+        conn = get_connection()
+        all_incidents_model = AllIncidentModel(conn)
+        all_incidents_model.insert(payload)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
