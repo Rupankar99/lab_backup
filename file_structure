@@ -1,0 +1,372 @@
+Folder PATH listing for volume Windows
+Volume serial number is 3A84-E7F1
+C:.
+|   .env
+|   app.py
+|   llm.py
+|   queue_listener.py
+|   RAG-Agent.pdf
+|   requirements.txt
+|   severity_weights.json
+|   __init__.py
+|   
++---.vscode
+|       settings.json
+|       
++---ai_models
+|   |   requirements.txt
+|   |   __init__.py
+|   |   
+|   +---bert
+|   |       config.json
+|   |       flax_model.msgpack
+|   |       gitattributes
+|   |       incident_severity_classifier.joblib
+|   |       incident_severity_scaler.joblib
+|   |       LICENSE
+|   |       model.onnx
+|   |       model.safetensors
+|   |       README.md
+|   |       severity_weights.json
+|   |       tf_model.h5
+|   |       tokenizer.json
+|   |       tokenizer_config.json
+|   |       vocab.txt
+|   |
+|   +---corrective_action_generator
+|   |       corrective_action_generator.py
+|   |
+|   +---esm_mapper_script
+|   |   |   bert_embedder.py
+|   |   |   database_operations.py
+|   |   |   imports.py
+|   |   |   incident_processor.py
+|   |   |   incident_processor_queue.py
+|   |   |   main_classifier.py
+|   |   |   README.md
+|   |   |   resource_extractor.py
+|   |   |   severity_engine.py
+|   |   |   test_components.py
+|   |   |   __init__.py
+|   |   |
+|   |   +---logs
+|   |   |       classifier.log
+|   |   |
+|   |   \---__pycache__
+|   |           bert_embedder.cpython-312.pyc
+|   |           database_operations.cpython-312.pyc
+|   |           incident_processor.cpython-312.pyc
+|   |           incident_processor1.cpython-312.pyc
+|   |           incident_processor_queue.cpython-312.pyc
+|   |           main_classifier.cpython-312.pyc
+|   |           resource_extractor.cpython-312.pyc
+|   |           severity_engine.cpython-312.pyc
+|   |           __init__.cpython-312.pyc
+|   |
+|   +---llm
+|   |   |   corrective_action.py
+|   |   |   corrective_action_rag.py
+|   |   |   post_action_in_queue.py
+|   |   |   test
+|   |   |   test.py
+|   |   |
+|   |   \---__pycache__
+|   |           corrective_action.cpython-312.pyc
+|   |           corrective_action_rag.cpython-312.pyc
+|   |
+|   +---model_weights
+|   |   |   data_generator.py
+|   |   |   embedding.py
+|   |   |   import_library_weight.py
+|   |   |   load_model_weight_app.py
+|   |   |   model_classifier.py
+|   |   |
+|   |   \---__pycache__
+|   |           data_generator.cpython-312.pyc
+|   |           embedding.cpython-312.pyc
+|   |           import_library_weight.cpython-312.pyc
+|   |           model_classifier.cpython-312.pyc
+|   |
+|   +---rag
+|   |   \---kb
+|   |           guradrail.py
+|   |           hitl.py
+|   |           kb_manager.py
+|   |           kb_seeder.py
+|   |           main_integration.py
+|   |           rag.py
+|   |           rag_prod.py
+|   |           rag_prod_test.py
+|   |           rag_strmlit.py
+|   |           rbac.py
+|   |           webcrawling.py
+|   |
+|   \---__pycache__
+|           __init__.cpython-312.pyc
+|
++---incident_db
+|   |   .env
+|   |   example_usage.py
+|   |   main.py
+|   |   requirements.txt
+|   |
+|   +---data
+|   |   |   incident_iq.db
+|   |   |   incident_iq_bckp.db
+|   |   |
+|   |   \---chroma_index
+|   |       |   chroma.sqlite3
+|   |       |
+|   |       \---cea35f3b-36e3-4bd4-b9a1-99f732f06b92
+|   |               data_level0.bin
+|   |               header.bin
+|   |               index_metadata.pickle
+|   |               length.bin
+|   |               link_lists.bin
+|   |
+|   +---db
+|   |   |   connection.py
+|   |   |
+|   |   \---__pycache__
+|   |           connection.cpython-312.pyc
+|   |
+|   +---migrations
+|   |   |   001_create_companies.py
+|   |   |   002_create_departments.py
+|   |   |   003_create_users.py
+|   |   |   004_create_roles.py
+|   |   |   005_create_user_roles.py
+|   |   |   006_create_company_users.py
+|   |   |   007_create_department_users.py
+|   |   |   008_incident_log.py
+|   |   |   009_classifier_outputs.py
+|   |   |   010_severity_rules.py
+|   |   |   011_queue.py
+|   |   |   012_report.py
+|   |   |   013_knowledge_base.py
+|   |   |   014_all_incidents.py
+|   |   |
+|   |   \---__pycache__
+|   |           001_create_companies.cpython-312.pyc
+|   |           002_create_departments.cpython-312.pyc
+|   |           003_create_users.cpython-312.pyc
+|   |           004_create_roles.cpython-312.pyc
+|   |           005_create_user_roles.cpython-312.pyc
+|   |           006_create_company_users.cpython-312.pyc
+|   |           007_create_department_users.cpython-312.pyc
+|   |           008_incident_log.cpython-312.pyc
+|   |           009_classifier_outputs.cpython-312.pyc
+|   |           010_severity_rules.cpython-312.pyc
+|   |           011_queue.cpython-312.pyc
+|   |           012_report.cpython-312.pyc
+|   |           013_knowledge_base.cpython-312.pyc
+|   |           014_all_incidents.cpython-312.pyc
+|   |
+|   +---models
+|   |   |   all_incident.py
+|   |   |   base_model.py
+|   |   |   classifier_output.py
+|   |   |   company.py
+|   |   |   company_user.py
+|   |   |   department.py
+|   |   |   department_user.py
+|   |   |   incident_log.py
+|   |   |   knowledge_base.py
+|   |   |   queue.py
+|   |   |   report.py
+|   |   |   role.py
+|   |   |   user.py
+|   |   |   user_role.py
+|   |   |
+|   |   \---__pycache__
+|   |           all_incident.cpython-312.pyc
+|   |           base_model.cpython-312.pyc
+|   |           classifier_output.cpython-312.pyc
+|   |           incident_log.cpython-312.pyc
+|   |           queue.cpython-312.pyc
+|   |           user.cpython-312.pyc
+|   |
+|   \---seeders
+|       |   001_seed_users.py
+|       |   002_seed_roles.py
+|       |   003_seed_companies.py
+|       |   004_seed_departments.py
+|       |   seed_company_users.py
+|       |   seed_department_users.py
+|       |   seed_incident_log.py
+|       |   seed_knowledge_base.py
+|       |   seed_severity_rules.py
+|       |   seed_user_roles.py
+|       |
+|       \---__pycache__
+|               001_seed_users.cpython-312.pyc
+|               002_seed_roles.cpython-312.pyc
+|               003_seed_companies.cpython-312.pyc
+|               004_seed_departments.cpython-312.pyc
+|               seed_company_users.cpython-312.pyc
+|               seed_department_users.cpython-312.pyc
+|               seed_incident_log.cpython-312.pyc
+|               seed_knowledge_base.cpython-312.pyc
+|               seed_severity_rules.cpython-312.pyc
+|               seed_user_roles.cpython-312.pyc
+|
++---logs
+|       classifier.log
+|       training.log
+|
++---mcp_agent
+|   |   .gitignore
+|   |   data_generation.py
+|   |   incident_results.json
+|   |   main.py
+|   |   models.py
+|   |   orchestrator.py
+|   |   requirements.txt
+|   |
+|   +---incident_ui
+|   |   |   db_ops.py
+|   |   |   main.py
+|   |   |   model.py
+|   |   |   streamlit_app.py
+|   |   |
+|   |   \---__pycache__
+|   |           db_ops.cpython-312.pyc
+|   |           main.cpython-312.pyc
+|   |           model.cpython-312.pyc
+|   |           routes.cpython-312.pyc
+|   |           storage.cpython-312.pyc
+|   |
+|   +---reporting
+|   |   |   reporting_agent.py
+|   |   |   __init__.py
+|   |   |
+|   |   \---__pycache__
+|   |           reporting_agent.cpython-312.pyc
+|   |           __init__.cpython-312.pyc
+|   |
+|   +---servers
+|   |   |   jira_server.py
+|   |   |   pagerduty_server.py
+|   |   |   routes.py
+|   |   |   slack_server.py
+|   |   |
+|   |   \---__pycache__
+|   |           jira_server.cpython-312.pyc
+|   |           pagerduty_server.cpython-312.pyc
+|   |           slack_server.cpython-312.pyc
+|   |
+|   +---tools
+|   |   |   jira_tool.py
+|   |   |   pagerduty_tool.py
+|   |   |   slack_tool.py
+|   |   |   __init__.py
+|   |   |
+|   |   \---__pycache__
+|   |           jira_tool.cpython-312.pyc
+|   |           pagerduty_tool.cpython-312.pyc
+|   |           slack_tool.cpython-312.pyc
+|   |           __init__.cpython-312.pyc
+|   |
+|   +---transport
+|   |   |   transport_agent.py
+|   |   |   utils.py
+|   |   |   __init__.py
+|   |   |
+|   |   \---__pycache__
+|   |           transport_agent.cpython-312.pyc
+|   |           utils.cpython-312.pyc
+|   |           __init__.cpython-312.pyc
+|   |
+|   \---__pycache__
+|           main.cpython-312.pyc
+|           models.cpython-312.pyc
+|           orchestrator.cpython-312.pyc
+|
++---model_training_bert_tuning
+|   |   data_generator.py
+|   |   embedding.py
+|   |   import_library_weight.py
+|   |   load_model_weight_app.py
+|   |   mock_data_generator.py
+|   |   model_classifier.py
+|   |
+|   \---__pycache__
+|           embedding.cpython-312.pyc
+|           import_library_weight.cpython-312.pyc
+|           model_classifier.cpython-312.pyc
+|
++---task_queue
+|   |   consumer.py
+|   |   db_init.py
+|   |   demo_queue.db
+|   |   jobs_queue.py
+|   |   producer.py
+|   |   queue_test.py
+|   |   __init__.py
+|   |
+|   \---__pycache__
+|           consumer.cpython-312.pyc
+|           db_init.cpython-312.pyc
+|           jobs_queue.cpython-312.pyc
+|           producer.cpython-312.pyc
+|           __init__.cpython-312.pyc
+|
++---token
+|       9b5ad71b2ce5302211f9c61530b329a4922fc6a4
+|
+\---ui
+    |   api.py
+    |   app.py
+    |   requirements.txt
+    |
+    +---.streamlit
+    |       config.toml
+    |
+    +---components
+    |   |   pipeline.py
+    |   |   __init__.py
+    |   |
+    |   \---__pycache__
+    |           pipeline.cpython-312.pyc
+    |           __init__.cpython-312.pyc
+    |
+    +---logs
+    |       classifier.log
+    |
+    +---pages
+    |   |   admin_approvals.py
+    |   |   chat_agent.py
+    |   |   dashboard.py
+    |   |   incident_alerts.py
+    |   |   incident_analysis.py
+    |   |   incident_analysis_crew.py
+    |   |   incident_reports.py
+    |   |   login.py
+    |   |   rag_qa.py
+    |   |   reports_alerts.py
+    |   |   reports_incidents.py
+    |   |   settings.py
+    |   |   workflow_visual.py
+    |   |   __init__.py
+    |   |
+    |   \---__pycache__
+    |           admin_approvals.cpython-312.pyc
+    |           dashboard.cpython-312.pyc
+    |           incident_alerts.cpython-312.pyc
+    |           incident_analysis_crew.cpython-312.pyc
+    |           login.cpython-312.pyc
+    |           reports_alerts.cpython-312.pyc
+    |           reports_incidents.cpython-312.pyc
+    |           settings.cpython-312.pyc
+    |           workflow_visual.cpython-312.pyc
+    |           __init__.cpython-312.pyc
+    |
+    \---static
+            OFL-SpaceGrotesk.txt
+            OFL-SpaceMono.txt
+            SpaceGrotesk-SemiBold.ttf
+            SpaceGrotesk-VariableFont_wght.ttf
+            SpaceMono-Bold.ttf
+            SpaceMono-BoldItalic.ttf
+            SpaceMono-Italic.ttf
+            SpaceMono-Regular.ttf
