@@ -1,0 +1,84 @@
+///jira_tools
+
+from langchain_core.tools import tool
+import requests
+
+JIRA_MCP = "http://localhost:8001/jira"  # Jira MCP server endpoint
+
+
+@tool
+def create_jira_issue(
+    project: str,
+    summary: str,
+    description: str,
+    priority: str,
+    reporter: str = None,
+    assigned_to: str = None
+) -> dict:
+    """
+    Create a Jira issue and push it through the Jira MCP microservice.
+    Mirrors the FastAPI server's 'jira_event' method signature exactly.
+    """
+
+    payload = {
+        "project": project,
+        "summary": summary,
+        "description": description,
+        "priority": priority,
+        "reporter": reporter,
+        "assigned_to": assigned_to
+    }
+
+    try:
+        # Use params to match FastAPI query-style argument parsing
+        response = requests.post(JIRA_MCP, json=payload)
+        response.raise_for_status()
+        print("✅ Sent Jira issue to Jira MCP.")
+        return response.json()
+    except Exception as e:
+        print("❌ Jira MCP Error:", e)
+        return {"status": "error", "message": str(e)}
+
+
+/// slack tool
+
+from langchain_core.tools import tool
+import requests
+
+SLACK_MCP = "http://localhost:8003/slack"  # Slack MCP server endpoint
+
+
+@tool
+def post_slack_alert(
+    channel: str,
+    message: str,
+    severity: str = "medium",
+    user: str = None,
+    thread_ts: str = None
+) -> dict:
+    """
+    Post an incident alert through the Slack MCP microservice.
+    Mirrors the FastAPI server's 'slack_event' signature exactly.
+    """
+
+    payload = {
+        "channel": channel,
+        "message": message,
+        "severity": severity,
+        "user": user,
+        "thread_ts": thread_ts
+    }
+
+    try:
+        print(payload,"payload")
+        # Using params since FastAPI parses these from query parameters
+        response = requests.post(SLACK_MCP, json=payload)
+        response.raise_for_status()
+        print("✅ Sent Slack alert to Slack MCP.")
+        return response.json()
+    except Exception as e:
+        print("❌ Slack MCP Error:", e)
+        return {"status": "error", "message": str(e)}
+
+
+///
