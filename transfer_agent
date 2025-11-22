@@ -31,9 +31,9 @@ class IntelligentTicketingAgent:
 
     def __init__(self):
         self.llm = ChatOpenAI( 
-            base_url="https://genailab.tcs.in", 
+            base_url="..", 
             model = "azure/genailab-maas-gpt-4o", 
-            api_key="sk-Wnu0C5qMv0cDuZoFy4aDpA", 
+            api_key="..", 
             http_client = client
         )
         
