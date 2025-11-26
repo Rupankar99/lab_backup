@@ -102,7 +102,7 @@ class ToolAgent:
         self.llm = ChatOpenAI(
             base_url="https://genailab.tcs.in",
             model="azure_ai/genailab-maas-DeepSeek-V3-0324",
-            api_key="sk-NDphplabEc8DR-bF5IPRzg",
+            api_key="sk-",
             http_client=client
         )
         self.mcp = MCPClient(self.name)
